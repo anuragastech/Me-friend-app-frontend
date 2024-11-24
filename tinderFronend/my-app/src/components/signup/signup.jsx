@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import './signup.css'; 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom"; 
+
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -11,11 +15,21 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [gender, setGender] = useState("");
   const [address, setAddress] = useState("");
+  const [skill, setSkill] = useState("");
   const [error, setError] = useState(null);
-
+  const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null);
+    setSuccess(null);
+
+    // Validate inputs
+    if (!firstName || !lastName || !email || !password || !gender || !age) {
+      setError("All fields are required.");
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
@@ -23,25 +37,56 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3005/signup", {
-        firstName, lastName, email, age, password, gender, address,
-      });
-      console.log("Signup successful:", response.data);
-    } catch (err) {
-      setError(err.response?.data?.message || "Signup failed. Please check your details.");
-    }
+        const response = await axios.post("http://localhost:3000/signup", {
+          firstName,
+          lastName,
+          emailid: email,  // Ensure the field name is emailId
+          age,
+          password,
+          gender,
+          address,
+          skill,
+        });
+      
+        toast.success("Signup successful! Please log in.", {
+          position: "top-right",   // Position of the notification
+          autoClose: 5000,         // Duration in milliseconds (5000ms = 5 seconds)
+          hideProgressBar: false,  // Show or hide progress bar
+          closeOnClick: true,      // Close notification when clicked
+          pauseOnHover: true,      // Pause notification when hovered
+        });       
+
+        setTimeout(() => {
+          navigate("/login"); // Redirect to /login
+        }, 5000);
+
+
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setAge("");
+        setPassword("");
+        setConfirmPassword("");
+        setGender("");
+        setAddress("");
+        setSkill("");
+      } catch (err) {
+        toast.error(err.response?.data?.message || "Signup failed. Please try again.");
+        setError(err.response?.data?.message || "Signup failed. Please try again.");
+      }
   };
 
   return (
     <div className="signup-page">
       <div className="signup-card">
         <div className="signup-image">
-          <h2>Welcome to EventBook!</h2>
+          <h2>Welcome to friendme!</h2>
           <p>Join our community and never miss out on events again.</p>
         </div>
         <div className="signup-form-container">
           <h1>Create an Account</h1>
           {error && <p className="error-message">{error}</p>}
+          {success && <p className="success-message">{success}</p>}
           <form onSubmit={handleSubmit}>
             <div className="input-row">
               <input
@@ -68,6 +113,12 @@ const Signup = () => {
               placeholder="Age"
               value={age}
               onChange={(e) => setAge(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Skill"
+              value={skill}
+              onChange={(e) => setSkill(e.target.value)}
             />
             <input
               type="password"
