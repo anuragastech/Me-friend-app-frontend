@@ -1,70 +1,41 @@
-/* Container */
-.feed-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
+/* Home.css */
 
-/* Card Container */
 .card-container {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-  height: 500px;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full screen height */
+  overflow: hidden; /* Prevent scrolling while swiping */
 }
 
-/* User Card */
-.user-card {
+.card {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 400px;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Image */
-.user-image {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 20px;
-  border: 5px solid #eee;
-}
-
-/* Details */
-.user-details {
   text-align: center;
+  transition: transform 0.3s ease-in-out;
 }
 
-.user-details h2 {
-  font-size: 24px;
-  color: #333;
+.card img {
+  width: 80%;
+  height: auto;
+  border-radius: 50%;
   margin-bottom: 10px;
 }
 
-.user-details p {
-  font-size: 18px;
-  color: #555;
+.card h3 {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
-/* Swipe Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.card p {
+  margin: 5px 0;
+  color: #555;
 }
