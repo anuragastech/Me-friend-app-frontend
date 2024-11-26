@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; 
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
     const [emailId, setEmailId] = useState("");
@@ -19,34 +19,41 @@ const Login = () => {
 
         try {
             const response = await axios.post(
-              'http://localhost:3000/login',
-              { emailId, password },
-              { withCredentials: true } 
+                'http://localhost:3002/login',
+                { emailId, password },
+                { withCredentials: true } // Ensures cookies are included
             );
-            // console.log('Login successful:', response.data);
-            toast.success("Signup successful! Please log in.", {
-                position: "top-right",   // Position of the notification
-                autoClose: 5000,         // Duration in milliseconds (5000ms = 5 seconds)
-                hideProgressBar: false,  // Show or hide progress bar
-                closeOnClick: true,      // Close notification when clicked
-                pauseOnHover: true,      // Pause notification when hovered
-              });       
-      
-              setTimeout(() => {
+
+            // Notify the user of success
+            toast.success("Login successful!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+
+            // Log cookies in the browser's console
+            console.log("Cookies in the browser:", document.cookie);
+
+            // Redirect to the home page after a short delay
+            setTimeout(() => {
                 navigate("/Home");
-              }, 5000);
-      
-          } catch (err) {
+            }, 5000);
+
+        } catch (err) {
+            // Handle errors
             if (err.response) {
-              console.error('Error response:', err.response);
-              setError(err.response.data.error || 'Login failed. Please check your credentials.');
+                console.error('Error response:', err.response);
+                setError(err.response.data.error || 'Login failed. Please check your credentials.');
             } else {
-              console.error('Error:', err);
-              setError('Network error. Please try again later.');
+                console.error('Error:', err);
+                setError('Network error. Please try again later.');
             }
-          }
-        };
-    
+        } finally {
+            setLoading(false); // Stop the loading spinner
+        }
+    };
 
     return (
         <div className="login-page">
@@ -57,7 +64,7 @@ const Login = () => {
                 </div>
                 <div className="login-form-container">
                     <h1>Login</h1>
-                    {error && <p className="error-message">{error}</p>} 
+                    {error && <p className="error-message">{error}</p>}
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
                             <label htmlFor="email">Email</label>
@@ -84,11 +91,8 @@ const Login = () => {
                             />
                         </div>
                         <button type="submit" disabled={loading}>
-                            {loading ? "Logging in..." : "Login"} {/* Show spinner during loading */}
+                            {loading ? "Logging in..." : "Login"}
                         </button>
-                        <p>
-                       
-                        </p>
                     </form>
                 </div>
             </div>

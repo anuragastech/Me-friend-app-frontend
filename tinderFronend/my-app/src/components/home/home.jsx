@@ -1,54 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';  // Import js-cookie
-import './Home.css'; 
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Home.css";
 
 const Home = () => {
-  const [feedData, setFeedData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  const [feedData, setFeedData] = useState([]); // Store feed data
+  const [loading, setLoading] = useState(true); // Loading state
+  const [page, setPage] = useState(1); // Current page
   const [limit, setLimit] = useState(5); // Number of profiles per page
-  const [authToken, setAuthToken] = useState(Cookies.get("token")); // Get token from cookies
 
   // Fetch feed data from backend
   useEffect(() => {
     const fetchFeedData = async () => {
-      if (!authToken) {
-        console.log("User not authenticated");
-        return; // Don't fetch if there's no token
-      }
+      setLoading(true); // Start loading
 
       try {
         const response = await axios.get(
-          `http://localhost:3000/feed?page=${page}&limit=${limit}`,
-          {
-            headers: {
-              Authorization: `Bearer ${authToken}`, // Send token in Authorization header
-            },
-          }
+          `http://localhost:3002/feed?page=${page}&limit=${limit}`
         );
         setFeedData(response.data); // Store fetched feed data in state
-        console.log(response.data);
-        
-        setLoading(false);
+        console.log("Fetched feed data:", response.data);
       } catch (error) {
-        console.error('Error fetching feed data:', error);
-        setLoading(false);
+        console.error("Error fetching feed data:", error);
+      } finally {
+        setLoading(false); // Stop loading
       }
     };
 
     fetchFeedData();
-  }, [page, limit, authToken]);
+  }, [page, limit]);
 
   // Handle swipe actions
   const handleSwipeRight = (userId) => {
     console.log(`User with ID ${userId} swiped right (Liked)`);
-    // Optionally, send a request to your backend to update like status
+    // Optionally, add logic for liking a profile
   };
 
   const handleSwipeLeft = (userId) => {
     console.log(`User with ID ${userId} swiped left (Disliked)`);
-    // Optionally, send a request to your backend to update dislike status
+    // Optionally, add logic for disliking a profile
   };
 
   return (
@@ -57,12 +46,12 @@ const Home = () => {
 
       {loading ? (
         <p>Loading feed...</p>
-      ) : (
+      ) : feedData.length > 0 ? (
         <div className="profile-cards-container">
           {feedData.map((user) => (
             <div className="profile-card" key={user._id}>
               <img
-                src={user.imageUrl} // Assuming 'imageUrl' is the user's image
+                src={user.imageUrl || "default-avatar.png"} // Fallback image if imageUrl is not provided
                 alt={`${user.name}'s profile`}
                 className="profile-image"
               />
@@ -71,7 +60,9 @@ const Home = () => {
 
               {/* Display leads date if available */}
               {user.leadsDate && (
-                <p className="leads-date">Leads Date: {new Date(user.leadsDate).toLocaleDateString()}</p>
+                <p className="leads-date">
+                  Leads Date: {new Date(user.leadsDate).toLocaleDateString()}
+                </p>
               )}
 
               <div className="swipe-actions">
@@ -90,6 +81,24 @@ const Home = () => {
               </div>
             </div>
           ))}
+        </div>
+      ) : (
+        <p>No profiles available to show.</p>
+      )}
+
+      {/* Pagination controls */}
+      {feedData.length > 0 && (
+        <div className="pagination-controls">
+          <button
+            onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
+            disabled={page === 1}
+          >
+            Previous
+          </button>
+          <span>Page {page}</span>
+          <button onClick={() => setPage((prevPage) => prevPage + 1)}>
+            Next
+          </button>
         </div>
       )}
     </div>
