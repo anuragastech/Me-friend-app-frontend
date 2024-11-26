@@ -1,108 +1,70 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./Home.css";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const Home = () => {
-  const [feedData, setFeedData] = useState([]); // Store feed data
-  const [loading, setLoading] = useState(true); // Loading state
-  const [page, setPage] = useState(1); // Current page
-  const [limit, setLimit] = useState(5); // Number of profiles per page
+const Feed = () => {
+  const [users, setUsers] = useState([]);
+  const [page, setPage] = useState(1);  // For pagination
+  const [limit] = useState(2);  // Number of users per page
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fetch feed data from backend
   useEffect(() => {
-    const fetchFeedData = async () => {
-      setLoading(true); // Start loading
+    fetchUsers();
+  }, [page]);  // Fetch users when the page changes
 
-      try {
-        const response = await axios.get(
-          `http://localhost:3002/feed?page=${page}&limit=${limit}`
-        );
-        setFeedData(response.data); // Store fetched feed data in state
-        console.log("Fetched feed data:", response.data);
-      } catch (error) {
-        console.error("Error fetching feed data:", error);
-      } finally {
-        setLoading(false); // Stop loading
-      }
-    };
+  const fetchUsers = async () => {
+    setLoading(true);
+    setError(null);
 
-    fetchFeedData();
-  }, [page, limit]);
+    try {
+      // Make the GET request to the backend, sending cookies with the request
+      const response = await axios.get('http://localhost:3002/feed', {
+        params: { page, limit },  // Send page and limit as query parameters
+        withCredentials: true,  // Ensure cookies are sent with cross-origin requests
+      });
 
-  // Handle swipe actions
-  const handleSwipeRight = (userId) => {
-    console.log(`User with ID ${userId} swiped right (Liked)`);
-    // Optionally, add logic for liking a profile
+      setUsers(response.data);  // Update users state with the response data
+    } catch (err) {
+      setError('Unable to fetch data');  // Handle errors if the request fails
+      console.error(err);
+    } finally {
+      setLoading(false);  // End the loading state after the request completes
+    }
   };
 
-  const handleSwipeLeft = (userId) => {
-    console.log(`User with ID ${userId} swiped left (Disliked)`);
-    // Optionally, add logic for disliking a profile
+  const handlePageChange = (newPage) => {
+    if (newPage > 0) {
+      setPage(newPage);  // Update page number when pagination buttons are clicked
+    }
   };
 
   return (
-    <div className="home-page">
-      <h1>Profile Feed</h1>
+    <div>
+      <h1>Feed</h1>
 
-      {loading ? (
-        <p>Loading feed...</p>
-      ) : feedData.length > 0 ? (
-        <div className="profile-cards-container">
-          {feedData.map((user) => (
-            <div className="profile-card" key={user._id}>
-              <img
-                src={user.imageUrl || "default-avatar.png"} // Fallback image if imageUrl is not provided
-                alt={`${user.name}'s profile`}
-                className="profile-image"
-              />
-              <h2>{user.name}</h2>
-              <p>{user.age} years old</p>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
 
-              {/* Display leads date if available */}
-              {user.leadsDate && (
-                <p className="leads-date">
-                  Leads Date: {new Date(user.leadsDate).toLocaleDateString()}
-                </p>
-              )}
+      <div>
+        {users.length > 0 ? (
+          <ul>
+            {users.map((user) => (
+              <li key={user._id}>{user.firstName}</li> 
+            ))}
+          </ul>
+        ) : (
+          <p>No users found</p>
+        )}
+      </div>
 
-              <div className="swipe-actions">
-                <button
-                  onClick={() => handleSwipeLeft(user._id)}
-                  className="swipe-button left"
-                >
-                  Dislike
-                </button>
-                <button
-                  onClick={() => handleSwipeRight(user._id)}
-                  className="swipe-button right"
-                >
-                  Like
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No profiles available to show.</p>
-      )}
-
-      {/* Pagination controls */}
-      {feedData.length > 0 && (
-        <div className="pagination-controls">
-          <button
-            onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
-            disabled={page === 1}
-          >
-            Previous
-          </button>
-          <span>Page {page}</span>
-          <button onClick={() => setPage((prevPage) => prevPage + 1)}>
-            Next
-          </button>
-        </div>
-      )}
+      <div>
+        <button onClick={() => handlePageChange(page - 1)} disabled={page <= 1}>
+          Previous
+        </button>
+        <button onClick={() => handlePageChange(page + 1)}>Next</button>
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default Feed;

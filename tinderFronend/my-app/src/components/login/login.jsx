@@ -33,16 +33,13 @@ const Login = () => {
                 pauseOnHover: true,
             });
 
-            // Log cookies in the browser's console
             console.log("Cookies in the browser:", document.cookie);
 
-            // Redirect to the home page after a short delay
             setTimeout(() => {
                 navigate("/Home");
             }, 5000);
 
         } catch (err) {
-            // Handle errors
             if (err.response) {
                 console.error('Error response:', err.response);
                 setError(err.response.data.error || 'Login failed. Please check your credentials.');
@@ -51,7 +48,7 @@ const Login = () => {
                 setError('Network error. Please try again later.');
             }
         } finally {
-            setLoading(false); // Stop the loading spinner
+            setLoading(false); 
         }
     };
 
