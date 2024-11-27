@@ -3,6 +3,9 @@ import axios from 'axios';
 import { useSwipeable } from 'react-swipeable';
 import './Home.css';
 import SwipeableCard from './SwipeableCard'; 
+import Navbar from "../navbar/navbar"
+
+
 
 const Feed = () => {
   const [users, setUsers] = useState([]);
@@ -55,6 +58,7 @@ const Feed = () => {
 
   return (
     <div>
+      <Navbar />
       <h1>Swipe Feed</h1>
 
       {loading && <p>Loading...</p>}
