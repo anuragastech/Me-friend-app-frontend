@@ -92,8 +92,44 @@ body {
     background: linear-gradient(45deg, #2575fc, #6a11cb);
   }
   
-  button:disabled {
+  /* button:disabled {
     background: #ddd;
     cursor: not-allowed;
-  }
-  
+  } */
+  /* Profile.css */
+.profile-edit-form input[type="file"] {
+  margin-top: 10px;
+}
+.profile-image-container button {
+  background: #987713; /* Bright yellow for better visibility */
+  color: white;
+  padding: 12px 25px;  /* Increased padding for better clickability */
+  font-size: 1.2rem;    /* Slightly larger font size */
+  border: none;
+  border-radius: 8px;   /* Softer rounded corners */
+  cursor: pointer;
+  /* margin-left: 150px; */
+  margin-top: -100px;     /* Space between image and button */
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for better visual depth */
+  z-index: 10;
+}
+
+/* Hover effect for the button */
+.profile-image-container button:hover {
+  background: #ffa000;  /* Darker shade of yellow on hover */
+  transform: translateY(-2px);  /* Button lifts slightly on hover */
+}
+
+/* Disabled button styling */
+.profile-image-container button:disabled {
+  background: #ddd;
+  cursor: not-allowed;
+  box-shadow: none;  /* Remove shadow when disabled */
+}
+
+/* Add additional space around the button */
+.profile-image-container button {
+  display: inline-block;
+  text-align: center;
+}

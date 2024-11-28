@@ -75,4 +75,78 @@
     font-size: 1.2rem;
     margin-bottom: 20px;
   }
-  
+  /* connections.css */
+
+/* General Styling for the Connections Page */
+.connections {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.connections h1 {
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Loader Style */
+.loader {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-top: 2rem;
+}
+
+/* Error Style */
+.error {
+  text-align: center;
+  color: red;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+/* Connections List Container */
+.connections-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Connection Card Styling */
+.connection-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.connection-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.connection-card h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.connection-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* No Connections Found Message */
+.no-connections {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 2rem;
+}
