@@ -9,12 +9,11 @@ const Profile = () => {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [imageFile, setImageFile] = useState(null); // State to store the selected image
-  const [isImageUploadVisible, setIsImageUploadVisible] = useState(false); // State for toggling image upload form visibility
-  const [passwordFormVisible, setPasswordFormVisible] = useState(false); // State to show password change form
-  const [newPassword, setNewPassword] = useState(""); // State to store the new password
+  const [imageFile, setImageFile] = useState(null);
+  const [isImageUploadVisible, setIsImageUploadVisible] = useState(false);
+  const [passwordFormVisible, setPasswordFormVisible] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
 
-  // Fetch user profile
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -24,16 +23,13 @@ const Profile = () => {
         console.error("Error fetching profile:", error);
       }
     };
-
     fetchProfile();
   }, []);
 
-  // Handle form input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Save updated profile details
   const saveProfile = async () => {
     try {
       setLoading(true);
@@ -49,7 +45,6 @@ const Profile = () => {
     }
   };
 
-  // Save new profile image
   const saveProfileImage = async () => {
     if (!imageFile) {
       setMessage("Please select an image to upload.");
@@ -67,8 +62,8 @@ const Profile = () => {
       });
 
       setMessage(response.data.message);
-      setProfile((prev) => ({ ...prev, image: response.data.image })); // Update profile with new image
-      setIsImageUploadVisible(false); // Hide the upload section after successful upload
+      setProfile((prev) => ({ ...prev, image: response.data.image }));
+      setIsImageUploadVisible(false);
     } catch (error) {
       console.error("Error uploading profile image:", error);
       setMessage(error.response?.data?.error || "Failed to upload image.");
@@ -77,20 +72,21 @@ const Profile = () => {
     }
   };
 
-  // Handle image selection
   const handleImageChange = (e) => {
     setImageFile(e.target.files[0]);
   };
 
-  // Handle password update
   const handlePasswordUpdate = async () => {
     try {
       setLoading(true);
-      const response = await axios.patch("/profile/password/edit", { password: newPassword }, { withCredentials: true });
-
-      setMessage(response.data.message); // Success message
-      setPasswordFormVisible(false); // Hide password form after successful update
-      setNewPassword(""); // Clear the password field
+      const response = await axios.patch(
+        "/profile/password/edit",
+        { password: newPassword },
+        { withCredentials: true }
+      );
+      setMessage(response.data.message);
+      setPasswordFormVisible(false);
+      setNewPassword("");
     } catch (error) {
       console.error("Error updating password:", error);
       setMessage(error.response?.data?.error || "Failed to update password.");
@@ -111,34 +107,29 @@ const Profile = () => {
           {/* Profile Image Section */}
           <div className="profile-image-container">
             <img
-              src={profile.image || "https://via.placeholder.com/150"} // Default image if no profile picture exists
+              src={profile.url || "https://via.placeholder.com/150"}
               alt="Profile"
               className="profile-image"
             />
-            <div className="upload-image">
-              {/* Single button for adding or updating image */}
-              <button onClick={() => setIsImageUploadVisible(true)}>
-                {profile.image ? "Update Image" : "Add Image"}
-              </button>
-
-              {/* Show the file input and save button if the upload form is visible */}
-              {isImageUploadVisible && (
-                <>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    style={{ display: "block", margin: "10px 0" }}
-                  />
-                  <button onClick={saveProfileImage} disabled={loading}>
-                    {loading ? "Uploading..." : "Save Image"}
-                  </button>
-                </>
-              )}
-            </div>
+            <button onClick={() => setIsImageUploadVisible(!isImageUploadVisible)}>
+              {isImageUploadVisible ? "Cancel" : profile.image ? "Update Image" : "Add Image"}
+            </button>
+            {isImageUploadVisible && (
+              <>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: "block", margin: "10px auto" }}
+                />
+                <button onClick={saveProfileImage} disabled={loading}>
+                  {loading ? "Uploading..." : "Save Image"}
+                </button>
+              </>
+            )}
           </div>
 
-          {/* Profile Information */}
+          {/* Profile Info */}
           {editMode ? (
             <div className="profile-edit-form">
               <label>
@@ -182,7 +173,7 @@ const Profile = () => {
             </div>
           )}
 
-          {/* Update Password Section */}
+          {/* Password Update */}
           <div className="update-password-section">
             {passwordFormVisible ? (
               <>
