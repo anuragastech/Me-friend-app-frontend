@@ -8,6 +8,7 @@ import Connections from "./components/connections/connection"
 import { ToastContainer } from "react-toastify";  
 import "react-toastify/dist/ReactToastify.css";
 import Profile from './components/profile/profile';
+import ChatBox from  "./components/chatBox/chatBoxUi"
 class App extends Component {
   render() {
     return (
@@ -23,6 +24,7 @@ class App extends Component {
               <Route path="/requests" element={<Requests />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/chat/:connectionId" element={<ChatBox />} />
 
               <Route path="/" element={<h1>Welcome to the App</h1>} />
             </Routes>

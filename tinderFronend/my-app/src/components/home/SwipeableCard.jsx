@@ -19,8 +19,8 @@ const SwipeableCard = ({ user, onSwipe }) => {
 
   return (
     <div {...handlers} className="card">
-      <img src={user.image} alt={user.firstName} className="user-image" />
-      <h3>{user.firstName}</h3>
+    src={user.image?.url || "https://via.placeholder.com/150"} 
+    <h3>{user.firstName}</h3>
       <p>Age: {user.age}</p>
     </div>
   );

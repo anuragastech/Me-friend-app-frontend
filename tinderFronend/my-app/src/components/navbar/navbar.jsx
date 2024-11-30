@@ -1,8 +1,20 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("/logout", {}, { withCredentials: true }); // Logout API
+      navigate("/login"); // Redirect to login page
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -30,7 +42,7 @@ const Navbar = () => {
                 isActive ? "nav-link active" : "nav-link"
               }
             >
-              Requests 
+              Requests
             </NavLink>
           </li>
           <li>
@@ -55,9 +67,11 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Premium User Section */}
-        <div className="premium-user">
-          <span>🌟 Premium User</span>
+        {/* Logout Button */}
+        <div className="auth-button">
+          <button onClick={handleLogout} className="logout-btn">
+            Logout
+          </button>
         </div>
       </div>
     </nav>

@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   background: #f9fafb;
+  align-items:start;
 }
 
 /* Profile Container */

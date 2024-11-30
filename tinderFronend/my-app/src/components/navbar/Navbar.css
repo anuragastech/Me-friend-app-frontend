@@ -78,4 +78,29 @@
       padding: 5px 10px;
     }
   }
+  /* Navbar.css */
+
+/* Auth Button Styles */
+.auth-button {
+  display: flex;
+  align-items: center;
+}
+
+.login-btn,
+.logout-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+.login-btn:hover,
+.logout-btn:hover {
+  background-color: #0056b3;
+}
+
   

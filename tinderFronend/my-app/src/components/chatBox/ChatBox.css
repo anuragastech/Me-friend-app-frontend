@@ -1,0 +1,140 @@
+/* Chat Page Container */
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #eae6df;
+  font-family: Arial, sans-serif;
+}
+
+/* Header Section */
+.chat-header {
+  padding: 15px 20px;
+  background-color: #075e54;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: white;
+}
+
+.chat-header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Messages Section */
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: url("https://cdn.wallpapersafari.com/46/78/exDpS7.jpg") repeat center center; /* Subtle background pattern */
+}
+
+/* Chat Bubbles */
+.message {
+  max-width: 75%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.4;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.message.sent {
+  align-self: flex-end;
+  background-color: #dcf8c6;
+  border-top-right-radius: 0;
+}
+
+.message.received {
+  align-self: flex-start;
+  background-color: white;
+  border-top-left-radius: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat Timestamp */
+.message::after {
+  content: attr(data-time);
+  font-size: 10px;
+  color: gray;
+  position: absolute;
+  bottom: -15px;
+  right: 10px;
+  display: block;
+}
+
+/* Input Section */
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 14px;
+  margin-right: 10px;
+  outline: none;
+  background-color: white;
+}
+
+.chat-input input::placeholder {
+  color: #999;
+}
+
+.chat-input button {
+  background-color: #31e949;
+  /* border: 2px; */
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #1db954;
+}
+.send-button {
+  background-color: #25d366; /* WhatsApp green */
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: #1db954; /* Slightly darker green on hover */
+}
+
+.send-button svg {
+  font-size: 20px; /* Icon size */
+}

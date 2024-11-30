@@ -150,3 +150,17 @@
   color: #555;
   margin-top: 2rem;
 }
+.connection-card.active {
+  background-color: #f0f8ff;
+  border: 1px solid #007bff;
+  cursor: pointer;
+}
+
+.chat-box-container {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px;
+  background-color: #fafafa;
+}
