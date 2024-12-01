@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // Check login state by calling backend API
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get("/api/auth/verify", { withCredentials: true });
+        setIsLoggedIn(response.data.isLoggedIn);
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  // Logout handler
   const handleLogout = async () => {
     try {
-      await axios.post("/logout", {}, { withCredentials: true }); // Logout API
+      await axios.post("/logout", {}, { withCredentials: true });
+      setIsLoggedIn(false); // Update login state
       navigate("/login"); // Redirect to login page
     } catch (error) {
       console.error("Error during logout:", error);
@@ -16,63 +32,144 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        {/* App Logo */}
-        <div className="logo">
-          {/* <h1>💬 PremiumChat</h1> */}
+    <nav className="w-full bg-gradient-to-r from-indigo-700 to-indigo-800 text-white fixed top-0 left-0 z-10 shadow-lg">
+      <div className="max-w-screen-lg mx-auto flex justify-between items-center py-4 px-6">
+        {/* FriendApp Logo */}
+        <div className="flex items-center space-x-3 text-xl font-bold uppercase text-cyan-400 cursor-pointer">
+          <img
+            src="https://res-console.cloudinary.com/dd6qdgpfr/thumbnails/v1/image/upload/v1714568636/bGtyNWxyZDBmOHMxeGxhdXNtemE=/preview"
+            alt="FriendApp"
+            className="w-12 h-12 rounded-full shadow-md transform transition-all duration-300 hover:scale-110"
+          />
+          <span>FriendApp</span>
         </div>
 
         {/* Navigation Links */}
-        <ul className="nav-links">
-          <li>
-            <NavLink
-              to="/Home"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/requests"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Requests
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/connections"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Connections
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/profile"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Profile
-            </NavLink>
-          </li>
+        <ul className="flex space-x-6">
+          {/* Show only when not logged in */}
+          {!isLoggedIn && (
+            <>
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/vlog"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  Vlog
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  About
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/support"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  Support
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/signup"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  Signup
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          {/* Show only when logged in */}
+          {isLoggedIn && (
+            <>
+              <li>
+                <NavLink
+                  to="/feed"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  Feed
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/requests"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  Requests
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/connections"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  Connections
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/profile"
+                  className={({ isActive }) =>
+                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                  }
+                >
+                  Profile
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
 
         {/* Logout Button */}
-        <div className="auth-button">
-          <button onClick={handleLogout} className="logout-btn">
-            Logout
-          </button>
-        </div>
+        {isLoggedIn && (
+          <div className="ml-4">
+            <button
+              onClick={handleLogout}
+              className="bg-gradient-to-r from-cyan-400 to-teal-500 text-white px-6 py-2 rounded-full font-semibold transform transition duration-200 hover:scale-105"
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   );

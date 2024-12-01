@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import './signup.css'; 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom"; 
-
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -17,15 +15,12 @@ const Signup = () => {
   const [address, setAddress] = useState("");
   const [skill, setSkill] = useState("");
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null);
-    setSuccess(null);
 
-    // Validate inputs
     if (!firstName || !lastName || !email || !password || !gender || !age) {
       setError("All fields are required.");
       return;
@@ -37,69 +32,58 @@ const Signup = () => {
     }
 
     try {
-        const response = await axios.post("http://localhost:3002/signup", {
-          firstName,
-          lastName,
-          emailid: email,  // Ensure the field name is emailId
-          age,
-          password,
-          gender,
-          address,
-          skill,
-        });
-      
-        toast.success("Signup successful! Please log in.", {
-          position: "top-right",   // Position of the notification
-          autoClose: 5000,         // Duration in milliseconds (5000ms = 5 seconds)
-          hideProgressBar: false,  // Show or hide progress bar
-          closeOnClick: true,      // Close notification when clicked
-          pauseOnHover: true,      // Pause notification when hovered
-        });       
+      await axios.post("http://localhost:3002/signup", {
+        firstName,
+        lastName,
+        emailid: email,
+        age,
+        password,
+        gender,
+        address,
+        skill,
+      });
 
-        setTimeout(() => {
-          navigate("/login"); // Redirect to /login
-        }, 5000);
+      toast.success("Signup successful! Please log in.", {
+        position: "top-right",
+        autoClose: 5000,
+      });
 
-
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setAge("");
-        setPassword("");
-        setConfirmPassword("");
-        setGender("");
-        setAddress("");
-        setSkill("");
-      } catch (err) {
-        toast.error(err.response?.data?.message || "Signup failed. Please try again.");
-        setError(err.response?.data?.message || "Signup failed. Please try again.");
-      }
+      setTimeout(() => {
+        navigate("/login");
+      }, 5000);
+    } catch (err) {
+      toast.error("Signup failed. Please try again.");
+      setError("Signup failed. Please try again.");
+    }
   };
 
   return (
-    <div className="signup-page">
-      <div className="signup-card">
-        <div className="signup-image">
-          <h2>Welcome to friendme!</h2>
-          <p>Join our community and never miss out on events again.</p>
+    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600">
+      <div className="bg-white rounded-lg shadow-lg flex flex-col md:flex-row w-full max-w-4xl overflow-hidden">
+        <div className="flex-1 bg-indigo-100 flex flex-col items-center justify-center p-8">
+          <h2 className="text-3xl font-bold text-gray-700">Welcome to FriendMe!</h2>
+          <p className="text-gray-600 mt-4 text-center max-w-sm">
+            Join our community and never miss out on events again.
+          </p>
         </div>
-        <div className="signup-form-container">
-          <h1>Create an Account</h1>
-          {error && <p className="error-message">{error}</p>}
-          {success && <p className="success-message">{success}</p>}
-          <form onSubmit={handleSubmit}>
-            <div className="input-row">
+        <div className="flex-1 p-8 flex flex-col justify-center">
+          <h1 className="text-2xl font-bold text-gray-700 text-center mb-6">Create an Account</h1>
+          {error && <p className="text-red-500 text-center">{error}</p>}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="flex gap-4">
               <input
                 type="text"
                 placeholder="First Name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
+                className="w-1/2 px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
               />
               <input
                 type="text"
                 placeholder="Last Name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+                className="w-1/2 px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
               />
             </div>
             <input
@@ -107,44 +91,56 @@ const Signup = () => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
             />
             <input
               type="number"
               placeholder="Age"
               value={age}
               onChange={(e) => setAge(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
             />
             <input
               type="text"
               placeholder="Skill"
               value={skill}
               onChange={(e) => setSkill(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
             />
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
             />
             <input
               type="password"
               placeholder="Confirm Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
             />
             <input
               type="text"
               placeholder="Gender"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
             />
             <input
               type="text"
               placeholder="Address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
             />
-            <button type="submit">Sign Up</button>
+            <button
+              type="submit"
+              className="w-full py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
+            >
+              Sign Up
+            </button>
           </form>
         </div>
       </div>

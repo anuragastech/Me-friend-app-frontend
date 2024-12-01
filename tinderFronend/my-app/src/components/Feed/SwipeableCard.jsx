@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSwipeable } from 'react-swipeable';
-import './Home.css';
 
 const SwipeableCard = ({ user, onSwipe }) => {
   // Swipe event handlers
@@ -18,10 +17,17 @@ const SwipeableCard = ({ user, onSwipe }) => {
   });
 
   return (
-    <div {...handlers} className="card">
-    src={user.image?.url || "https://via.placeholder.com/150"} 
-    <h3>{user.firstName}</h3>
-      <p>Age: {user.age}</p>
+    <div
+      {...handlers}
+      className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-transform transform"
+    >
+      <img
+        src={user.image?.url || "https://via.placeholder.com/150"}
+        alt={`${user.firstName}'s avatar`}
+        className="w-full h-60 object-cover rounded-lg mb-4"
+      />
+      <h3 className="text-xl font-semibold text-gray-700">{user.firstName}</h3>
+      <p className="text-gray-500">Age: {user.age}</p>
     </div>
   );
 };
