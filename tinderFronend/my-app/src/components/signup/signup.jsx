@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../navbar/navbar";
+
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -59,6 +61,8 @@ const Signup = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600">
+              <Navbar/>
+
       <div className="bg-white rounded-lg shadow-lg flex flex-col md:flex-row w-full max-w-4xl overflow-hidden">
         <div className="flex-1 bg-indigo-100 flex flex-col items-center justify-center p-8">
           <h2 className="text-3xl font-bold text-gray-700">Welcome to FriendMe!</h2>

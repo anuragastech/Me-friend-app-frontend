@@ -5,6 +5,7 @@ import axios from "axios";
 const Navbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Check login state by calling backend API
   useEffect(() => {
@@ -44,8 +45,33 @@ const Navbar = () => {
           <span>FriendApp</span>
         </div>
 
+        {/* Mobile Menu Button */}
+        <button
+          className="lg:hidden p-2 text-white"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+
         {/* Navigation Links */}
-        <ul className="flex space-x-6">
+        <ul
+          className={`lg:flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6 absolute lg:static top-16 left-0 w-full lg:w-auto bg-indigo-700 lg:bg-transparent ${
+            isMobileMenuOpen ? "block" : "hidden"
+          }`}
+        >
           {/* Show only when not logged in */}
           {!isLoggedIn && (
             <>
@@ -53,7 +79,9 @@ const Navbar = () => {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   Home
@@ -63,7 +91,9 @@ const Navbar = () => {
                 <NavLink
                   to="/vlog"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   Vlog
@@ -73,7 +103,9 @@ const Navbar = () => {
                 <NavLink
                   to="/about"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   About
@@ -83,7 +115,9 @@ const Navbar = () => {
                 <NavLink
                   to="/support"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   Support
@@ -93,7 +127,9 @@ const Navbar = () => {
                 <NavLink
                   to="/login"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   Login
@@ -103,7 +139,9 @@ const Navbar = () => {
                 <NavLink
                   to="/signup"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   Signup
@@ -119,7 +157,9 @@ const Navbar = () => {
                 <NavLink
                   to="/feed"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   Feed
@@ -129,7 +169,9 @@ const Navbar = () => {
                 <NavLink
                   to="/requests"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   Requests
@@ -139,7 +181,9 @@ const Navbar = () => {
                 <NavLink
                   to="/connections"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   Connections
@@ -149,7 +193,9 @@ const Navbar = () => {
                 <NavLink
                   to="/profile"
                   className={({ isActive }) =>
-                    isActive ? "text-white bg-cyan-400 px-4 py-2 rounded-md" : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
+                    isActive
+                      ? "text-white bg-cyan-400 px-4 py-2 rounded-md"
+                      : "text-white hover:bg-cyan-400 px-4 py-2 rounded-md transition"
                   }
                 >
                   Profile

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Navbar from "../navbar/navbar";
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
@@ -48,6 +48,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-indigo-400 to-blue-300">
+        <Navbar/>
       <div className="bg-white rounded-xl p-8 shadow-xl w-full max-w-md animate-fade-in">
         <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Welcome Back!</h2>
         <p className="text-gray-600 text-center mb-6">Please log in to continue.</p>
