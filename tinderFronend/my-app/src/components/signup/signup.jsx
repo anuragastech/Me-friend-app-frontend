@@ -60,6 +60,7 @@ const Signup = () => {
   };
 
   return (
+    
     <div className="flex items-center justify-center h-screen bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600">
               <Navbar/>
 

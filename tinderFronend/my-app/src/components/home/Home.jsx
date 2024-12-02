@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../navbar/navbar";
-import Footer from "./homeFooter"; // Make sure you import Footer properly
+import Footer from "./homeFooter"; 
 
 const Home = () => {
   return (
@@ -24,6 +24,7 @@ const Home = () => {
             Video Chat
           </button>
         </div>
+        
 
         {/* Animations Container */}
         <div className="absolute top-[10%] right-[50%] w-1/5 h-1/5">
