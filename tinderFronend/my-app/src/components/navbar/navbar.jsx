@@ -36,12 +36,13 @@ const Navbar = () => {
     <nav className="w-full bg-gradient-to-r from-indigo-700 to-indigo-800 text-white fixed top-0 left-0 z-10 shadow-lg">
       <div className="max-w-screen-lg mx-auto flex justify-between items-center py-4 px-6">
         {/* FriendApp Logo */}
-        <div className="flex items-center space-x-3 text-xl font-bold uppercase text-cyan-400 cursor-pointer">
-          <img
-            src="https://res-console.cloudinary.com/dd6qdgpfr/thumbnails/v1/image/upload/v1714568636/bGtyNWxyZDBmOHMxeGxhdXNtemE=/preview"
-            alt="FriendApp"
-            className="w-12 h-12 rounded-full shadow-md transform transition-all duration-300 hover:scale-110"
-          />
+        <div className="flex  items-center space-x-3 text-xl font-bold uppercase text-cyan-400 cursor-pointer">
+        <img
+  src="https://res-console.cloudinary.com/dd6qdgpfr/thumbnails/v1/image/upload/v1714568636/bGtyNWxyZDBmOHMxeGxhdXNtemE=/preview"
+  alt="FriendApp"
+  className="w-12 h-12 bg-indigo-800 rounded-full shadow-md transform transition-all duration-300 hover:scale-110"
+/>
+
           <span>FriendApp</span>
         </div>
 
