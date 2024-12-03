@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../navbar/navbar";
+
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
@@ -47,17 +48,20 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-br from-indigo-400 to-blue-300">
-        <Navbar/>
-      <div className="bg-white rounded-xl p-8 shadow-xl w-full max-w-md animate-fade-in">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Welcome Back!</h2>
-        <p className="text-gray-600 text-center mb-6">Please log in to continue.</p>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
+      <Navbar />
+      <div className="bg-white p-10 rounded-3xl shadow-xl max-w-md w-full animate-fade-in">
+        <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center tracking-wide">
+          Welcome Back!
+        </h2>
+        <p className="text-gray-600 text-center mb-8 text-lg">Please log in to continue.</p>
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Email Input */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
+              Email Address
             </label>
             <input
               type="email"
@@ -65,7 +69,7 @@ const Login = () => {
               value={emailId}
               onChange={(e) => setEmailId(e.target.value)}
               placeholder="Enter your email"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
               required
             />
           </div>
@@ -81,7 +85,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
               required
             />
           </div>
@@ -90,8 +94,8 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full px-4 py-2 text-white font-semibold rounded-lg transition ${
-              loading ? "bg-indigo-400" : "bg-indigo-600 hover:bg-indigo-700"
+            className={`w-full px-6 py-3 text-white font-semibold rounded-xl transition duration-300 ${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
             }`}
           >
             {loading ? "Logging in..." : "Login"}

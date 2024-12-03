@@ -38,9 +38,10 @@ const Navbar = () => {
         {/* FriendApp Logo */}
         <div className="flex  items-center space-x-3 text-xl font-bold uppercase text-cyan-400 cursor-pointer">
         <img
-  src="https://res-console.cloudinary.com/dd6qdgpfr/thumbnails/v1/image/upload/v1714568636/bGtyNWxyZDBmOHMxeGxhdXNtemE=/preview"
+  // src="https://res.cloudinary.com/dd6qdgpfr/image/upload/v1733227227/conversation_xgsfzo.png"
+  src="https://res.cloudinary.com/dd6qdgpfr/image/upload/v1733227481/chat_ow07xy.png"
   alt="FriendApp"
-  className="w-12 h-12 bg-indigo-800 rounded-full shadow-md transform transition-all duration-300 hover:scale-110"
+  className="w-12 h-12  shadow-md transform transition-all duration-300 hover:scale-110"
 />
 
           <span>FriendApp</span>
