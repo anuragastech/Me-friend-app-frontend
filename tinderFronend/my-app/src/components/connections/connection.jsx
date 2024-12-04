@@ -18,7 +18,7 @@ const Connections = () => {
     setError(null); // Clear previous errors
 
     try {
-      const response = await axios.get("http://localhost:3002/user/connections", {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/connections`, {
         withCredentials: true,
       });
 

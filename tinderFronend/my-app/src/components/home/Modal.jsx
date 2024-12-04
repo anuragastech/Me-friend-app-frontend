@@ -18,7 +18,7 @@ const Modal = ({ isOpen, onClose }) => {
             Close
           </button>
           <button
-            onClick={() => window.location.href = "/pricing"} // Redirect to pricing page
+            onClick={() => window.location.href = "/support"} // Redirect to pricing page
             className="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-500"
           >
             Upgrade Now

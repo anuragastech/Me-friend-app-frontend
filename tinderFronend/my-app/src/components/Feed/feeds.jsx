@@ -18,7 +18,7 @@ const Feed = () => {
     setError(null);
 
     try {
-      const response = await axios.get('http://localhost:3002/feed', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/feed`, {
         params: { page, limit },
         withCredentials: true,
       });
@@ -37,7 +37,7 @@ const Feed = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3002/request/send/${status}/${userId}`,
+        `${process.env.REACT_APP_API_URL}/request/send/${status}/${userId}`,
         {},
         { withCredentials: true }
       );

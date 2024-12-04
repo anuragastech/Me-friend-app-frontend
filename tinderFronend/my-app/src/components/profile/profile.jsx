@@ -16,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get("/profile/view", { withCredentials: true });
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/view`, { withCredentials: true });
         setProfile(response.data.profileData);
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -32,7 +32,7 @@ const Profile = () => {
   const saveProfile = async () => {
     try {
       setLoading(true);
-      const response = await axios.patch("/profile/edit", formData, { withCredentials: true });
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/profile/edit`, formData, { withCredentials: true });
       setMessage(response.data.message);
       setProfile((prev) => ({ ...prev, ...formData }));
       setEditMode(false);
@@ -55,7 +55,7 @@ const Profile = () => {
       const imageFormData = new FormData();
       imageFormData.append("image", imageFile);
 
-      const response = await axios.patch("/profile/image", imageFormData, {
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/profile/image`, imageFormData, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -79,7 +79,7 @@ const Profile = () => {
     try {
       setLoading(true);
       const response = await axios.patch(
-        "/profile/password/edit",
+        `${process.env.REACT_APP_API_URL}/profile/password/edit`,
         { password: newPassword },
         { withCredentials: true }
       );

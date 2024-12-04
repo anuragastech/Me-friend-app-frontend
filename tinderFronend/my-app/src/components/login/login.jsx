@@ -19,9 +19,10 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3002/login",
+        `${process.env.REACT_APP_API_URL}/login`,
         { emailId, password },
-        { withCredentials: true } // Ensures cookies are included
+        { withCredentials: true } 
+        
       );
 
       // Notify the user of success
@@ -34,7 +35,7 @@ const Login = () => {
       });
 
       setTimeout(() => {
-        navigate("/Home");
+        navigate("/feed");
       }, 5000);
     } catch (err) {
       if (err.response) {

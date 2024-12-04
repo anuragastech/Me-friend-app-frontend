@@ -24,7 +24,7 @@ const ChatPage = () => {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3002/chat/${connectionId}`,
+          `${process.env.REACT_APP_API_URL}/chat/${connectionId}`,
           { withCredentials: true }
         );
         setMessages(
@@ -57,7 +57,7 @@ const ChatPage = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3002/chat/${connectionId}`,
+        `${process.env.REACT_APP_API_URL}/chat/${connectionId}`,
         { message: newMessage },
         { withCredentials: true }
       );
@@ -72,7 +72,7 @@ const ChatPage = () => {
           ),
         },
       ]);
-      setNewMessage(""); // Clear input after sending
+      setNewMessage("");
     } catch (error) {
       console.error("Error sending message:", error);
       setError("Failed to send message. Please try again.");
