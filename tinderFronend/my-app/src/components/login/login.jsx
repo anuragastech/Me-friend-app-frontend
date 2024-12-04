@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../navbar/navbar";
+import   Footer from "../home/homeFooter" 
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
@@ -103,6 +104,8 @@ const Login = () => {
           </button>
         </form>
       </div>
+      <Footer />
+
     </div>
   );
 };

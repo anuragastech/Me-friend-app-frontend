@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import Navbar from "../navbar/navbar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import   Footer from "./homeFooter" 
+
 
 const Support = () => {
   const [formData, setFormData] = useState({
@@ -14,16 +18,36 @@ const Support = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+
+    // Mock delay to simulate submission
+    setTimeout(() => {
+      toast.success("Your inquiry has been submitted successfully!", {
+        position: "top-center",
+        autoClose: 3000, // Close after 3 seconds
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true
+      });
+
+      // Reset the form
+      setFormData({
+        name: "",
+        email: "",
+        message: ""
+      });
+    }, 1000); // Simulate 1-second delay
   };
 
   return (
-    <div className="bg-gradient-to-r from-indigo-700 to-indigo-800 text-white">
+    <div className="bg-gradient-to-r from-indigo-700 to-indigo-800 text-white min-h-screen">
+      {/* Include Navbar */}
       <Navbar />
 
+      {/* Toast Notification */}
+      <ToastContainer />
+
       <div className="max-w-screen-xl mx-auto px-4 pt-24 pb-16">
-        {/* Support Section Title */}
+        {/* Page Title */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-extrabold text-white mb-4">Support Center</h2>
           <p className="text-lg text-cyan-300">
@@ -31,24 +55,23 @@ const Support = () => {
           </p>
         </div>
 
-        {/* FAQs Section */}
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
+        {/* FAQs and Contact Form */}
+        <div className="grid md:grid-cols-2 gap-12">
+          {/* FAQs Section */}
           <div>
             <h3 className="text-3xl font-semibold text-white mb-6">Frequently Asked Questions</h3>
             <div className="space-y-6">
               <div className="bg-white text-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <h4 className="font-semibold text-xl">How do I create an account?</h4>
-                <p className="text-lg">Simply click on the 'Sign Up' button on the homepage and follow the instructions to create a new account.</p>
+                <p className="text-lg">Click 'Sign Up' on the homepage and follow the instructions.</p>
               </div>
-
               <div className="bg-white text-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <h4 className="font-semibold text-xl">Is my data secure?</h4>
-                <p className="text-lg">Yes, we use end-to-end encryption to ensure your conversations and data are completely secure.</p>
+                <p className="text-lg">We use end-to-end encryption for your data's safety.</p>
               </div>
-
               <div className="bg-white text-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <h4 className="font-semibold text-xl">How can I reset my password?</h4>
-                <p className="text-lg">You can reset your password by clicking on the 'Forgot Password' link on the login page.</p>
+                <p className="text-lg">Click 'Forgot Password' on the login page to reset it.</p>
               </div>
             </div>
           </div>
@@ -65,9 +88,9 @@ const Support = () => {
                   onChange={handleChange}
                   placeholder="Your Name"
                   className="w-full p-4 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  required
                 />
               </div>
-
               <div>
                 <input
                   type="email"
@@ -76,9 +99,9 @@ const Support = () => {
                   onChange={handleChange}
                   placeholder="Your Email"
                   className="w-full p-4 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  required
                 />
               </div>
-
               <div>
                 <textarea
                   name="message"
@@ -87,9 +110,9 @@ const Support = () => {
                   placeholder="Your Message"
                   rows="6"
                   className="w-full p-4 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  required
                 />
               </div>
-
               <div className="text-center">
                 <button
                   type="submit"
@@ -101,25 +124,9 @@ const Support = () => {
             </form>
           </div>
         </div>
-
-        {/* Contact Details Section */}
-        <div className="text-center mt-16">
-          <h3 className="text-3xl font-semibold text-white mb-6">Get in Touch</h3>
-          <p className="text-lg text-cyan-300 mb-4">
-            If you need further assistance, feel free to contact us directly.
-          </p>
-          <div className="flex justify-center space-x-12">
-            <div>
-              <h4 className="text-xl text-white font-semibold">Email</h4>
-              <p className="text-lg text-cyan-300">support@friendapp.com</p>
-            </div>
-            <div>
-              <h4 className="text-xl text-white font-semibold">Phone</h4>
-              <p className="text-lg text-cyan-300">+1 (800) 123-4567</p>
-            </div>
-          </div>
-        </div>
       </div>
+      <Footer />
+
     </div>
   );
 };

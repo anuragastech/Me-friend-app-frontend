@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar/navbar";
+import   Footer from "../home/homeFooter" 
 
 
 const Signup = () => {
@@ -149,6 +150,7 @@ const Signup = () => {
           </form>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

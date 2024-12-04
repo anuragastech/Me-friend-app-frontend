@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../navbar/navbar";
+import   Footer from "./homeFooter" 
 
 const About = () => {
   return (
@@ -17,7 +18,7 @@ const About = () => {
           {/* Left Section: Image */}
           <div className="relative">
             <img
-              src="https://via.placeholder.com/600x400"
+              src="https://images.pexels.com/photos/697244/pexels-photo-697244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt="About FriendApp"
               className="w-full rounded-lg shadow-xl"
             />
@@ -97,20 +98,23 @@ const About = () => {
         </div>
 
         {/* Call to Action Section */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 mb-16">
           <h2 className="text-3xl font-bold text-white mb-4">Join Us Today</h2>
           <p className="text-lg text-cyan-300 mb-6">
             Ready to connect with new people? Join FriendApp now and start making connections that matter.
           </p>
           <a
             href="/signup"
-            className="bg-gradient-to-r from-cyan-400 to-teal-500 text-white px-8 py-3 rounded-full text-lg font-semibold transform transition duration-300 hover:scale-105"
+            className="bg-gradient-to-r  from-cyan-400 to-teal-500 text-white px-8 py-3 rounded-full text-lg font-semibold transform transition duration-300 hover:scale-105"
           >
             Sign Up Now
           </a>
         </div>
       </div>
+      <Footer />
+
     </div>
+    
   );
 };
 

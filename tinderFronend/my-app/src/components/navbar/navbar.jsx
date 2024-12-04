@@ -80,11 +80,11 @@ const Navbar = () => {
                   Home
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink to="/vlog" className="nav-link">
                   Vlog
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink to="/about" className="nav-link">
                   About
