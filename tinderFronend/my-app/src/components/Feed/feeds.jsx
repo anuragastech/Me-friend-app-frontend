@@ -24,6 +24,7 @@ const Feed = () => {
       });
 
       setUsers(response.data);
+      console.log(response.data, 'ramam');
     } catch (err) {
       setError('Unable to fetch data');
       console.error(err);
@@ -51,34 +52,43 @@ const Feed = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-purple-100 py-6 px-4">
-      <h1 className="text-3xl font-bold text-gray-700 mb-6">Swipe Feed</h1>
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 py-16 px-6">
+      <h1 className="text-4xl mt-10 font-extrabold text-white text-center mb-5">
+        Swipe Feed
+      </h1>
 
-      {loading && <p className="text-lg text-gray-500">Loading...</p>}
-      {error && <p className="text-lg text-red-500">{error}</p>}
+      {loading && <p className="text-lg text-gray-100 text-center">Loading...</p>}
+      {error && <p className="text-lg text-red-300 text-center">{error}</p>}
 
-      <div className="w-full max-w-xl">
+      <div className="flex items-center justify-center">
         {/* Display the first user card only */}
         {users.length > 0 ? (
           <SwipeableCard user={users[0]} onSwipe={handleSwipe} />
         ) : (
-          !loading && <p className="text-lg text-gray-500">No more users to display.</p>
+          !loading && (
+            <p className="text-lg text-white text-center">
+              No more users to display.
+            </p>
+          )
         )}
       </div>
 
-      <div className="flex space-x-4 mt-6">
+      {/* Buttons Section */}
+      <div className="flex justify-center space-x-6 mt-8">
         <button
           onClick={() => setPage(page - 1)}
           disabled={page <= 1}
-          className={`px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg transition-transform ${
-            page <= 1 ? 'bg-gray-300 cursor-not-allowed' : ''
+          className={`px-8 py-3 text-lg font-semibold rounded-full transition-transform shadow-lg ${
+            page <= 1
+              ? 'bg-gray-400 text-gray-300 cursor-not-allowed'
+              : 'bg-gradient-to-r from-gray-300 to-gray-400 text-gray-700 hover:scale-105 hover:shadow-2xl'
           }`}
         >
           Previous
         </button>
         <button
           onClick={() => setPage(page + 1)}
-          className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg transition-transform hover:bg-blue-600"
+          className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold text-lg rounded-full shadow-lg transition-transform hover:scale-105 hover:shadow-2xl"
         >
           Next
         </button>

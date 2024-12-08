@@ -106,7 +106,7 @@ const Profile = () => {
           {/* Profile Image Section */}
           <div className="relative">
             <img
-              src={profile.url || "https://via.placeholder.com/150"}
+              src={profile?.image?.url || "https://via.placeholder.com/150"} 
               alt="Profile"
               className="w-32 h-32 rounded-full border-4 border-purple-600 shadow-lg object-cover"
             />

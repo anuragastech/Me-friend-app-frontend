@@ -53,38 +53,42 @@ const ReceivedRequests = () => {
   return (
     <>
       <Navbar />
-      <div className="received-requests bg-gradient-to-r from-blue-50 to-purple-50 min-h-screen p-8">
-        <div className="requests-container max-w-7xl mx-auto">
-          <h1 className="text-center text-4xl font-semibold text-gray-800 mb-8">
+      <div className="received-requests bg-gradient-to-r from-blue-100 via-white to-purple-100 min-h-screen p-8">
+        <div className="requests-container max-w-7xl mx-auto mt-16">
+          {/* Page Heading */}
+          <h1 className="text-center text-3xl font-bold text-gray-800 mt-10 mb-12 tracking-wider">
             Received Requests
           </h1>
 
-          {loading && <p className="text-center text-xl text-blue-500">Loading...</p>}
-          {error && <p className="text-center text-xl text-red-500">{error}</p>}
+          {/* Loading and Error Messages */}
+          {loading && <p className="text-center text-2xl text-blue-600 font-medium">Loading...</p>}
+          {error && <p className="text-center text-2xl text-red-500 font-medium">{error}</p>}
 
-          <div className="requests-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {/* Requests List */}
+          <div className="requests-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
             {requests.length > 0 ? (
               requests.map((request) => (
                 <div
                   key={request._id}
                   className="request-card bg-white rounded-xl shadow-xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-2xl"
                 >
-                  <h3 className="text-xl font-semibold text-gray-700">
+                  {/* User Details */}
+                  <h3 className="text-2xl font-semibold text-gray-800 mb-2">
                     {request.fromUserId.firstName} {request.fromUserId.lastName}
                   </h3>
-                  <p className="mt-2 text-gray-500">Status: {request.status}</p>
+                  <p className="text-lg text-gray-600">Status: {request.status}</p>
 
                   {/* Accept and Reject Buttons */}
-                  <div className="mt-4 flex justify-center gap-4">
+                  <div className="mt-6 flex justify-center gap-6">
                     <button
                       onClick={() => handleUpdateStatus(request._id, 'accepted')}
-                      className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
+                      className="bg-green-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-green-600 hover:shadow-2xl transition-all text-lg font-medium"
                     >
                       Accept
                     </button>
                     <button
                       onClick={() => handleUpdateStatus(request._id, 'rejected')}
-                      className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
+                      className="bg-red-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-red-600 hover:shadow-2xl transition-all text-lg font-medium"
                     >
                       Reject
                     </button>
@@ -92,7 +96,9 @@ const ReceivedRequests = () => {
                 </div>
               ))
             ) : (
-              <p className="text-center text-lg text-gray-500 mt-8">No requests received.</p>
+              <p className="text-center text-2xl text-gray-500 font-medium mt-16">
+                No requests received.
+              </p>
             )}
           </div>
         </div>
