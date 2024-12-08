@@ -29,6 +29,27 @@ const ReceivedRequests = () => {
     }
   };
 
+  const handleUpdateStatus = async (requestId, newStatus) => {
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_API_URL}/user/request/update-status`,
+        { requestId, newStatus },
+        {
+          withCredentials: true,
+        }
+      );
+
+      // Update the request list locally after a successful update
+      setRequests((prevRequests) =>
+        prevRequests.filter((request) => request._id !== requestId)
+      );
+
+      alert(response.data.message);
+    } catch (err) {
+      alert(err.response?.data?.message || 'Error updating status');
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -52,6 +73,22 @@ const ReceivedRequests = () => {
                     {request.fromUserId.firstName} {request.fromUserId.lastName}
                   </h3>
                   <p className="mt-2 text-gray-500">Status: {request.status}</p>
+
+                  {/* Accept and Reject Buttons */}
+                  <div className="mt-4 flex justify-center gap-4">
+                    <button
+                      onClick={() => handleUpdateStatus(request._id, 'accepted')}
+                      className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => handleUpdateStatus(request._id, 'rejected')}
+                      className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
+                    >
+                      Reject
+                    </button>
+                  </div>
                 </div>
               ))
             ) : (
