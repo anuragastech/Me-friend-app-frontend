@@ -67,7 +67,7 @@ const Signup = () => {
 
       <div className="bg-white rounded-lg shadow-lg flex flex-col md:flex-row w-full max-w-4xl overflow-hidden mt-4 mb-10">
         <div className="flex-1 bg-indigo-100 flex flex-col items-center justify-center p-8">
-          <h2 className="text-3xl font-bold text-gray-700 mt-12">Welcome to FriendMe!</h2>
+          {/* <h2 className="text-3xl font-bold text-gray-700 mt-12">Welcome to FriendMe!</h2> */}
           <p className="text-gray-600 mt-2 text-center max-w-sm">
             Join our community and never miss out on events again.
           </p>
