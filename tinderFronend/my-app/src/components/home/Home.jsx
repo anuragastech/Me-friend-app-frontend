@@ -22,7 +22,7 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full h-full overflow-x-hidden font-sans">
+    <div className="w-full h-full overflow-x-hidden font-sans mb-8">
       <Navbar />
       {/* First Section */}
       <div className="w-full min-h-screen bg-gradient-to-r from-purple-900 via-blue-900 to-indigo-900 flex flex-col justify-center items-start px-12 py-24">
@@ -127,7 +127,7 @@ const Home = () => {
         </div>
       </div>
 
-      <Footer />
+      <Footer  />
     </div>
   );
 };

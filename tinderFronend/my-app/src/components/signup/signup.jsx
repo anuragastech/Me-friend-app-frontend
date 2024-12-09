@@ -65,15 +65,15 @@ const Signup = () => {
     <div className="flex items-center justify-center h-screen bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600">
               <Navbar/>
 
-      <div className="bg-white rounded-lg shadow-lg flex flex-col md:flex-row w-full max-w-4xl overflow-hidden">
+      <div className="bg-white rounded-lg shadow-lg flex flex-col md:flex-row w-full max-w-4xl overflow-hidden mb-16">
         <div className="flex-1 bg-indigo-100 flex flex-col items-center justify-center p-8">
-          <h2 className="text-3xl font-bold text-gray-700">Welcome to FriendMe!</h2>
-          <p className="text-gray-600 mt-4 text-center max-w-sm">
+          <h2 className="text-3xl font-bold text-gray-700 mt-12">Welcome to FriendMe!</h2>
+          <p className="text-gray-600 mt-2 text-center max-w-sm">
             Join our community and never miss out on events again.
           </p>
         </div>
         <div className="flex-1 p-8 flex flex-col justify-center">
-          <h1 className="text-2xl font-bold text-gray-700 text-center mb-6">Create an Account</h1>
+          <h1 className="text-2xl font-bold text-gray-700 text-center ">Create an Account</h1>
           {error && <p className="text-red-500 text-center">{error}</p>}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex gap-4">

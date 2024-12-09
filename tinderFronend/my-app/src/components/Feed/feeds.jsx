@@ -24,7 +24,7 @@ const Feed = () => {
       });
 
       setUsers(response.data);
-      console.log(response.data, 'ramam');
+      // console.log(response.data, 'ramam');
     } catch (err) {
       setError('Unable to fetch data');
       console.error(err);

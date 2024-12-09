@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -13,13 +14,25 @@ const Navbar = () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/verify`, { withCredentials: true });
         setIsLoggedIn(response.data.isLoggedIn);
+
+        // Redirect to login page if not logged in and accessing protected pages
+        if (!response.data.isLoggedIn) {
+          const protectedPaths = ["/feed", "/requests", "/connections", "/profile"];
+          if (protectedPaths.includes(location.pathname)) {
+            navigate("/login");
+          }
+        }
       } catch (error) {
         setIsLoggedIn(false);
+        const protectedPaths = ["/feed", "/requests", "/connections", "/profile"];
+        if (protectedPaths.includes(location.pathname)) {
+          navigate("/login");
+        }
       }
     };
 
     checkAuth();
-  }, []);
+  }, [location.pathname, navigate]);
 
   // Logout handler
   const handleLogout = async () => {
@@ -33,7 +46,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-gradient-to-r from-indigo-700 to-indigo-800 text-white fixed top-0 left-0 z-10 shadow-lg  ">
+    <nav className="w-full bg-gradient-to-r from-indigo-700 to-indigo-800 text-white fixed top-0 left-0 z-10 shadow-lg">
       <div className="max-w-screen-lg mx-auto flex justify-between items-center py-4 px-6">
         {/* FriendApp Logo */}
         <div className="flex items-center space-x-3 text-xl font-bold uppercase text-cyan-400 cursor-pointer">
@@ -47,7 +60,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden p-2 text-white "
+          className="lg:hidden p-2 text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <svg
@@ -68,7 +81,7 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <ul
-          className={`lg:flex  pl-4 flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6 absolute lg:static top-16 left-0 w-full lg:w-auto bg-indigo-700 lg:bg-transparent ${
+          className={`lg:flex pb-2 pl-4 flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6 absolute lg:static top-16 left-0 w-full lg:w-auto bg-indigo-700 lg:bg-transparent ${
             isMobileMenuOpen ? "block" : "hidden"
           }`}
         >
@@ -80,11 +93,6 @@ const Navbar = () => {
                   Home
                 </NavLink>
               </li>
-              {/* <li>
-                <NavLink to="/vlog" className="nav-link">
-                  Vlog
-                </NavLink>
-              </li> */}
               <li>
                 <NavLink to="/about" className="nav-link">
                   About
@@ -135,7 +143,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="text-white hover:bg-blue-700 px-4 py-2 rounded-md transition"
+                  className="text-white hover:bg-blue-700 px-4 py-2 rounded-md transition pb-4"
                 >
                   Logout
                 </button>

@@ -39,14 +39,14 @@ const Support = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-indigo-700 to-indigo-800 text-white min-h-screen">
+    <div className="bg-gradient-to-r from-indigo-700 to-indigo-800 text-white min-h-screen ">
       {/* Include Navbar */}
       <Navbar />
 
       {/* Toast Notification */}
       <ToastContainer />
 
-      <div className="max-w-screen-xl mx-auto px-4 pt-24 pb-16">
+      <div className="max-w-screen-xl mx-auto px-4 pt-24 pb-16 mb-10">
         {/* Page Title */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-extrabold text-white mb-4">Support Center</h2>

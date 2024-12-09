@@ -6,7 +6,7 @@ const About = () => {
   return (
     <div className="bg-gradient-to-r from-indigo-700 to-indigo-800 text-white py-16 pt-24">
       <Navbar />
-      <div className="max-w-screen-xl mx-auto px-4">
+      <div className="max-w-screen-xl mx-auto px-4 mb-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-extrabold text-white mb-4">About FriendApp</h2>
           <p className="text-lg text-cyan-300">
