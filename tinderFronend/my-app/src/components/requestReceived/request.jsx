@@ -53,15 +53,15 @@ const ReceivedRequests = () => {
   return (
     <>
       <Navbar />
-      <div className="received-requests bg-gradient-to-r from-blue-100 via-white to-purple-100 min-h-screen p-8">
+      <div className="received-requests bg-gradient-to-r from-indigo-900 to-blue-800 min-h-screen p-8">
         <div className="requests-container max-w-7xl mx-auto mt-16">
           {/* Page Heading */}
-          <h1 className="text-center text-3xl font-bold text-gray-800 mt-10 mb-12 tracking-wider">
+          <h1 className="text-center text-4xl font-extrabold text-white mb-12 tracking-wide">
             Received Requests
           </h1>
 
           {/* Loading and Error Messages */}
-          {loading && <p className="text-center text-2xl text-blue-600 font-medium">Loading...</p>}
+          {loading && <p className="text-center text-2xl text-blue-600 font-medium animate-pulse">Loading...</p>}
           {error && <p className="text-center text-2xl text-red-500 font-medium">{error}</p>}
 
           {/* Requests List */}

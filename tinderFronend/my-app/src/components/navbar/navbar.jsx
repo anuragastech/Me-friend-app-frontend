@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-gradient-to-r from-indigo-700 to-indigo-800 text-white fixed top-0 left-0 z-10 shadow-lg">
+    <nav className="w-full bg-gradient-to-r from-indigo-700 to-indigo-800 text-white fixed top-0 left-0 z-10 shadow-lg  ">
       <div className="max-w-screen-lg mx-auto flex justify-between items-center py-4 px-6">
         {/* FriendApp Logo */}
         <div className="flex items-center space-x-3 text-xl font-bold uppercase text-cyan-400 cursor-pointer">
@@ -47,7 +47,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden p-2 text-white"
+          className="lg:hidden p-2 text-white "
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <svg
@@ -68,7 +68,7 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <ul
-          className={`lg:flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6 absolute lg:static top-16 left-0 w-full lg:w-auto bg-indigo-700 lg:bg-transparent ${
+          className={`lg:flex  pl-4 flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6 absolute lg:static top-16 left-0 w-full lg:w-auto bg-indigo-700 lg:bg-transparent ${
             isMobileMenuOpen ? "block" : "hidden"
           }`}
         >
@@ -135,7 +135,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="text-white hover:bg-red-600 px-4 py-2 rounded-md transition"
+                  className="text-white hover:bg-blue-700 px-4 py-2 rounded-md transition"
                 >
                   Logout
                 </button>

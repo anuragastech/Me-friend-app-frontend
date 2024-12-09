@@ -18,11 +18,16 @@ const Connections = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/connections`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/user/connections`,
+        { withCredentials: true }
+      );
 
-      setConnections(response.data.data || []);
+      const validConnections = response.data.data.filter(
+        (user) => user && user.firstName && user.lastName
+      );
+
+      setConnections(validConnections);
     } catch (err) {
       setError(
         err.response?.data?.message ||
@@ -45,55 +50,60 @@ const Connections = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-teal-500 via-green-500 to-blue-500 py-12 px-6">
-        {/* Top-aligned heading */}
-        <div className="text-center mb-10 mt-14">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-wide drop-shadow-2xl">
+      <div className="min-h-screen bg-gradient-to-r from-indigo-900 to-blue-800 py-4 px-6">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-extrabold text-white mt-20" >
             Your Connections
           </h1>
+          <p className="text-lg text-gray-300">Tap a contact to start chatting</p>
         </div>
 
-        {/* Main content */}
-        <div className="flex flex-col items-center justify-start">
-          {/* Loading state */}
-          {loading && <p className="text-2xl text-white font-medium animate-pulse">Loading connections...</p>}
+        <div className="flex flex-col items-center">
+          {loading && (
+            <p className="text-lg text-gray-200 font-medium animate-pulse">
+              Loading connections...
+            </p>
+          )}
 
-          {/* Error state */}
-          {error && <p className="text-2xl text-red-200 mb-6">{error}</p>}
+          {error && <p className="text-lg text-red-500 mb-4">{error}</p>}
 
-          {/* Connections list */}
           {!loading && !error && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+            <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg overflow-hidden">
               {connections.length > 0 ? (
                 connections.map((user) => (
                   <div
                     key={user._id}
-                    className="connection-card bg-white text-gray-800 p-6 rounded-xl shadow-lg hover:shadow-2xl hover:transform hover:translate-y-[-4px] transition-all cursor-pointer"
+                    className="flex items-center gap-4 p-4 border-b border-gray-300 hover:bg-gray-50 transition-all cursor-pointer rounded-lg"
                     onClick={() => handleNavigateToChat(user)}
                   >
-                    {/* User Info */}
-                    <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg">
-                        {user.firstName[0]}{user.lastName[0]}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900">{user.firstName} {user.lastName}</h3>
-                        <p className="text-sm text-gray-600">Email: {user.email}</p>
-                      </div>
+                    {/* Profile Picture */}
+                    <div className="w-14 h-14 rounded-full overflow-hidden">
+                      {user.image ? (
+                        <img
+                          src={user.image.url}
+                          alt={`${user.firstName} ${user.lastName}`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-r from-green-500 to-teal-400 text-white flex items-center justify-center font-bold text-xl shadow-lg">
+                          {user.firstName[0]}
+                          {user.lastName[0]}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Button to start a conversation */}
-                    <button
-                      onClick={() => handleNavigateToChat(user)}
-                      className="mt-4 w-full py-2 px-4 text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg shadow-md hover:bg-gradient-to-r hover:from-purple-500 hover:to-indigo-500 transition-all duration-200"
-                    >
-                      Start Chat
-                    </button>
+                    {/* User Info */}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-gray-800">
+                        {user.firstName} {user.lastName}
+                      </h3>
+                      <p className="text-sm text-gray-500">Last seen recently</p>
+                    </div>
                   </div>
                 ))
               ) : (
-                <p className="text-2xl text-white font-medium text-center mt-6">
-                  You don't have any connections yet.
+                <p className="text-lg text-gray-500 text-center py-4">
+                  No connections found.
                 </p>
               )}
             </div>
